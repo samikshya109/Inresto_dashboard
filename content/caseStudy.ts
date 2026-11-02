@@ -1,22 +1,6 @@
 // All copy for the case study lives here, so it can be edited without touching layout code.
-// Images are served from the original portfolio (Wix). To self-host, drop files in /public
-// and swap the URLs below for "/your-file.png".
 
-const wix = (id: string) => `https://static.wixstatic.com/media/${id}`;
-
-export const media = {
-  cover: wix("ee2b8d_12f154c570104fa8a44cc54083c672e0~mv2.png"),
-  mockup: wix("ee2b8d_c223c0d9b2ed4d6f9fab88623b4eac5a~mv2.jpg"),
-  dashboardA: wix("ee2b8d_e05c2a00b335463784244617991922dd~mv2.gif"),
-  dashboardB: wix("ee2b8d_ffd8a28a1b8d401e90322c34e178a97d~mv2.gif"),
-  acceptA: wix("ee2b8d_a8017e483d65457cb611f1eb0eb8d09f~mv2.gif"),
-  acceptB: wix("ee2b8d_8823c5d470ef46b5a27a7eb85fef2d8f~mv2.gif"),
-  bulkA: wix("ee2b8d_5094cfd620504d6f8d4ebc7199ffe681~mv2.png"),
-  bulkB: wix("ee2b8d_e5230ffbdbeb4487917f51c4b8282d88~mv2.png"),
-  bulkGif: wix("ee2b8d_e9934740a6eb4689b2f222500f471d49~mv2.gif"),
-  oldCard: wix("ee2b8d_5aaef76a2bfe434fb7f7581ff450af20~mv2.png"),
-  newCard: wix("ee2b8d_292ea3a4312248119edf0e4edaf61496~mv2.png"),
-};
+// Every visual in the site is built in code (see components/Interactives.tsx), so there are no image files to host.
 
 export const meta = {
   title: "Inresto order dashboard",
@@ -120,13 +104,13 @@ export type Decision = {
   // Tradeoffs are written from the decisions above. Edit to match what actually happened.
   tension: string;
   resolution: string;
-  media?: { src: string; alt: string }[];
-  demo?: "views" | "stages";
+  demo: "dashboard" | "stages" | "accept" | "close" | "bulk" | "views" | "card";
 };
 
 export const decisions: Decision[] = [
   {
     n: 1,
+    demo: "dashboard",
     title: "One dashboard for every order type",
     decision:
       "A centralized dashboard consolidates all orders and groups them into Delivery, Takeaway, Curbside and Dine-in.",
@@ -134,13 +118,10 @@ export const decisions: Decision[] = [
     tension: "Everything in one place can mean everything at once.",
     resolution:
       "Order-type tabs sit on top of an All view, so teams can zoom out for the full picture or narrow to the queue they own.",
-    media: [
-      { src: media.dashboardA, alt: "Unified dashboard switching between order types" },
-      { src: media.dashboardB, alt: "Unified dashboard showing tickets grouped by type" },
-    ],
   },
   {
     n: 2,
+    demo: "stages",
     title: "Stage navigation with live counts",
     decision:
       "A top bar of stages (Accepted, Prepared, Dispatched, Delivered), each showing a live ticket count for one-tap filtering.",
@@ -148,10 +129,10 @@ export const decisions: Decision[] = [
     tension: "Numbers that change constantly can become noise.",
     resolution:
       "Counts stay quiet inside the navigation instead of firing alerts, so a growing number reads as a bottleneck at a glance.",
-    demo: "stages",
   },
   {
     n: 3,
+    demo: "accept",
     title: "Acceptance in one flow",
     decision:
       "Accept a ticket, assign a rider (in-house or third party), edit details and choose billing without leaving the flow.",
@@ -159,13 +140,10 @@ export const decisions: Decision[] = [
     tension: "Putting every choice in one place risks a crowded form.",
     resolution:
       "Choices appear in the order staff make them, so the flow reads top to bottom and only asks for what’s needed next.",
-    media: [
-      { src: media.acceptA, alt: "Accepting an order and assigning a rider" },
-      { src: media.acceptB, alt: "Choosing a billing method during acceptance" },
-    ],
   },
   {
     n: 4,
+    demo: "close",
     title: "Status updates with close indicators",
     decision:
       "Tickets move Prepared → Dispatched → Delivered, and a notification indicator prompts staff to close each one.",
@@ -176,6 +154,7 @@ export const decisions: Decision[] = [
   },
   {
     n: 5,
+    demo: "bulk",
     title: "Bulk actions and operational controls",
     decision:
       "Multi-select for batch edits, plus controls to pause incoming orders, switch outlets and quickly modify details.",
@@ -183,24 +162,20 @@ export const decisions: Decision[] = [
     tension: "Power tools make it just as fast to make a mistake at scale.",
     resolution:
       "Selection is a deliberate mode, and pausing orders is a visible state, so batch actions never happen by accident.",
-    media: [
-      { src: media.bulkGif, alt: "Selecting several orders for a batch action" },
-      { src: media.bulkA, alt: "Pause incoming orders control" },
-      { src: media.bulkB, alt: "Outlet switcher" },
-    ],
   },
   {
     n: 6,
+    demo: "views",
     title: "Card view and list view",
     decision: "Both card and list views, so each team picks the format that fits how it works.",
     why: "Letting people match the interface to their mental model makes them faster.",
     tension: "Two views means two layouts to design, build and keep consistent.",
     resolution:
       "Both views draw on the same order fields in the same hierarchy, so switching changes density, never meaning.",
-    demo: "views",
   },
   {
     n: 7,
+    demo: "card",
     title: "An order card built for a glance",
     decision: "Order cards surface the most relevant details first, with a firm visual hierarchy.",
     why: "Prioritised information lowers mental effort and speeds up action when time is short.",

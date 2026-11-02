@@ -89,7 +89,7 @@ export default function HeroBoard() {
                   <li key={t.id} className="mini-ticket" data-closing={t.closing || undefined}>
                     <span className="mt-id">#{t.id}</span>
                     <span className="mt-type">{t.type}</span>
-                    <span className="mt-items">{t.items} items</span>
+                    <span className="mt-items">{t.items} {t.items === 1 ? "item" : "items"}</span>
                     {s.key === "delivered" && <span className="mt-close">Close</span>}
                   </li>
                 ))}

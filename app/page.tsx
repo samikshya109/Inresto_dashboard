@@ -1,17 +1,22 @@
 import HeroBoard from "@/components/HeroBoard";
 import StageNav, { type Chapter } from "@/components/StageNav";
 import GoalMap from "@/components/GoalMap";
-import CardCompare from "@/components/CardCompare";
 import FlowSim from "@/components/FlowSim";
-import Media from "@/components/Media";
 import { StagesDemo, ViewsDemo } from "@/components/Demos";
+import {
+  AcceptDrawer,
+  BulkControls,
+  CardCompareCoded,
+  ResponsiveSwitch,
+  StatusTrack,
+  UnifiedDashboard,
+} from "@/components/Interactives";
 import {
   consequences,
   decisions,
   demonstrates,
   goals,
   insight,
-  media,
   meta,
   metrics,
   outcomes,
@@ -139,17 +144,16 @@ export default function Page() {
                         <p>{d.resolution}</p>
                       </div>
                     </div>
-                    {d.demo === "stages" && <StagesDemo />}
-                    {d.demo === "views" && <ViewsDemo />}
-                    {d.n === 4 && <CloseIndicator />}
-                    {d.n === 7 && <CardCompare before={media.oldCard} after={media.newCard} />}
-                    {d.media && (
-                      <div className={`media-row media-row-${d.media.length}`}>
-                        {d.media.map((m) => (
-                          <Media key={m.src} src={m.src} alt={m.alt} />
-                        ))}
-                      </div>
-                    )}
+                    <div className="try">
+                      <span className="try-label">Try it</span>
+                      {d.demo === "dashboard" && <UnifiedDashboard />}
+                      {d.demo === "stages" && <StagesDemo />}
+                      {d.demo === "accept" && <AcceptDrawer />}
+                      {d.demo === "close" && <StatusTrack />}
+                      {d.demo === "bulk" && <BulkControls />}
+                      {d.demo === "views" && <ViewsDemo />}
+                      {d.demo === "card" && <CardCompareCoded />}
+                    </div>
                   </div>
                 </div>
               </li>
@@ -176,18 +180,8 @@ export default function Page() {
                   staff are standing.
                 </p>
               </div>
-              <Media
-                className="devices-img"
-                src={media.mockup}
-                alt="Inresto CRM order dashboard on mobile and desktop"
-              />
+              <ResponsiveSwitch />
             </div>
-            <Media
-              className="cover-img"
-              src={media.cover}
-              alt="Inresto CRM app design and desktop accept flow"
-              caption="Inresto CRM app design and desktop accept flow"
-            />
           </div>
         </section>
 
@@ -271,25 +265,5 @@ function ChapterHead({ stage, title }: { stage: string; title: string }) {
       <span className="stage-chip">{stage}</span>
       <h2>{title}</h2>
     </div>
-  );
-}
-
-function CloseIndicator() {
-  const steps = [
-    { label: "Prepared", c: "var(--prepared)" },
-    { label: "Dispatched", c: "var(--dispatched)" },
-    { label: "Delivered", c: "var(--delivered)", dot: true },
-    { label: "Closed", c: "var(--ink)" },
-  ];
-  return (
-    <ol className="closeline" aria-label="Status progression">
-      {steps.map((s) => (
-        <li key={s.label} style={{ ["--c" as string]: s.c }}>
-          <span className="closeline-pip" />
-          <span>{s.label}</span>
-          {s.dot && <span className="notif" aria-label="Close reminder" />}
-        </li>
-      ))}
-    </ol>
   );
 }
