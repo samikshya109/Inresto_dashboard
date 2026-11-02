@@ -1,21 +1,10 @@
-import HeroBoard from "@/components/HeroBoard";
-import StageNav, { type Chapter } from "@/components/StageNav";
-import GoalMap from "@/components/GoalMap";
-import FlowSim from "@/components/FlowSim";
-import { StagesDemo, ViewsDemo } from "@/components/Demos";
+import Media from "@/components/Media";
+import SectionNav, { type NavItem } from "@/components/SectionNav";
+import Wireframe from "@/components/Wireframe";
 import {
-  AcceptDrawer,
-  BulkControls,
-  CardCompareCoded,
-  ResponsiveSwitch,
-  StatusTrack,
-  UnifiedDashboard,
-} from "@/components/Interactives";
-import {
-  consequences,
   decisions,
-  demonstrates,
   goals,
+  impact,
   insight,
   meta,
   metrics,
@@ -25,13 +14,12 @@ import {
   reflection,
 } from "@/content/caseStudy";
 
-const chapters: Chapter[] = [
-  { id: "problem", stage: "Received", title: "The problem", count: problems.length, color: "var(--received)" },
-  { id: "goals", stage: "Accepted", title: "Goals", count: goals.length, color: "var(--accepted)" },
-  { id: "decisions", stage: "Preparing", title: "Decisions", count: decisions.length, color: "var(--prepared)" },
-  { id: "solution", stage: "Dispatched", title: "The solution", count: 3, color: "var(--dispatched)" },
-  { id: "outcome", stage: "Delivered", title: "Outcome", count: outcomes.length, color: "var(--delivered)" },
-  { id: "reflection", stage: "Closed", title: "Reflection", count: 1, color: "var(--ink)" },
+const nav: NavItem[] = [
+  { id: "problem", label: "Problem" },
+  { id: "goals", label: "Goals" },
+  { id: "solution", label: "Solution" },
+  { id: "decisions", label: "Decisions" },
+  { id: "outcome", label: "Outcome" },
 ];
 
 export default function Page() {
@@ -39,18 +27,25 @@ export default function Page() {
     <>
       <a className="skip" href="#problem">Skip to the case study</a>
 
-      <header className="hero">
-        <div className="wrap hero-grid">
-          <div className="hero-copy">
-            <a className="back" href={meta.portfolio}>Samikshya Satpathy</a>
-            <h1>
-              The order dashboard that keeps a restaurant calm at 8:30 on a Friday.
-            </h1>
-            <p className="lede">{meta.subtitle}</p>
-          </div>
-          <HeroBoard />
+      <header className="hero" id="top">
+        <div className="wrap">
+          <a className="back" href={meta.portfolio}>Samikshya Satpathy</a>
         </div>
         <div className="wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="cover"
+            src="/media/cover.jpg"
+            alt="Inresto CRM: designing a one-stop solution for restaurant growth at scale"
+            width={2400}
+            height={757}
+          />
+        </div>
+        <div className="wrap hero-body">
+          <div>
+            <h1>{meta.title}</h1>
+            <p className="lede">{meta.summary}</p>
+          </div>
           <dl className="facts">
             {meta.facts.map((f) => (
               <div key={f.label}>
@@ -62,98 +57,98 @@ export default function Page() {
         </div>
       </header>
 
-      <StageNav chapters={chapters} />
+      <SectionNav items={nav} />
 
       <main>
-        <section className="chapter overview">
+        <section className="block">
           <div className="wrap narrow">
-            <p className="overview-text">{overview}</p>
+            <p className="overview">{overview}</p>
           </div>
         </section>
 
-        {/* RECEIVED — the problem */}
-        <section id="problem" className="chapter" style={{ ["--c" as string]: "var(--received)" }}>
+        <section id="problem" className="block">
           <div className="wrap">
-            <ChapterHead stage="Received" title="Peak hour, before the redesign" />
-            <p className="chapter-intro">
-              Restaurant brands on Inresto CRM were fighting the tool while fighting the rush. Five
-              problems kept landing on the counter.
-            </p>
-            <ul className="pile">
-              {problems.map((p, i) => (
-                <li key={p.tag} className="pile-ticket" style={{ ["--r" as string]: `${[-2.5, 1.8, -1, 2.6, -1.8][i]}deg` }}>
-                  <span className="pile-tag">{p.tag}</span>
-                  <p>{p.text}</p>
+            <h2>The problem</h2>
+            <div className="split">
+              <div>
+                <h3>What was broken</h3>
+                <ul className="list list-x">
+                  {problems.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              </div>
+              <div>
+                <h3>What it caused</h3>
+                <ul className="list list-arrow">
+                  {impact.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              </div>
+            </div>
+            <p className="insight">{insight}</p>
+          </div>
+        </section>
+
+        <section id="goals" className="block">
+          <div className="wrap">
+            <h2>Design goals</h2>
+            <ul className="goals">
+              {goals.map((g) => (
+                <li key={g.title}>
+                  <strong>{g.title}</strong>
+                  <span>{g.text}</span>
                 </li>
               ))}
             </ul>
-            <div className="fallout">
-              <h3>What it cost on the floor</h3>
-              <ul>
-                {consequences.map((c) => (
-                  <li key={c}>{c}</li>
-                ))}
-              </ul>
-            </div>
-            <blockquote className="insight">
-              <p>
-                <span>{insight.lead}</span> {insight.rest}
-              </p>
-            </blockquote>
           </div>
         </section>
 
-        {/* ACCEPTED — goals */}
-        <section id="goals" className="chapter" style={{ ["--c" as string]: "var(--accepted)" }}>
+        <section id="solution" className="block">
           <div className="wrap">
-            <ChapterHead stage="Accepted" title="Six goals, each traced to a decision" />
-            <p className="chapter-intro">
-              Every goal had to show up somewhere concrete in the product. Pick one to see where.
+            <h2>The solution</h2>
+            <p className="intro">
+              A responsive order dashboard for web and mobile: every order type on one screen,
+              organised by stage, with bulk controls for the rush.
             </p>
-            <GoalMap goals={goals} decisions={decisions} />
+            <Media
+              kind="video"
+              src="/media/dashboard-overview.mp4"
+              poster="/media/dashboard-overview.jpg"
+              alt="Walkthrough of the redesigned order dashboard"
+              caption="The redesigned order dashboard in card view"
+            />
           </div>
         </section>
 
-        {/* PREPARING — decisions */}
-        <section id="decisions" className="chapter" style={{ ["--c" as string]: "var(--prepared)" }}>
+        <section id="decisions" className="block">
           <div className="wrap">
-            <ChapterHead stage="Preparing" title="Seven decisions and what each one traded" />
-            <p className="chapter-intro">
-              Each decision solved a real problem and created a smaller one. Here’s the tension
-              behind every choice, and how the design resolved it.
-            </p>
+            <h2>Key decisions</h2>
+            <p className="intro">How each decision evolved, and why the final version won.</p>
           </div>
+
           <ol className="decisions">
-            {decisions.map((d) => (
-              <li key={d.n} id={`decision-${d.n}`} className="decision">
-                <div className="wrap decision-grid">
+            {decisions.map((d, i) => (
+              <li key={d.id} id={d.id} className="decision">
+                <div className="wrap">
                   <div className="decision-head">
-                    <span className="decision-n" aria-hidden="true">{d.n}</span>
-                    <h3>{d.title}</h3>
+                    <span className="decision-n" aria-hidden="true">{i + 1}</span>
+                    <div>
+                      <h3>{d.title}</h3>
+                      <p className="decision-what">{d.decision}</p>
+                      <p className="decision-why"><span>Why</span> {d.why}</p>
+                    </div>
                   </div>
-                  <div className="decision-body">
-                    <p className="decision-what">{d.decision}</p>
-                    <p className="decision-why">{d.why}</p>
-                    <div className="tradeoff">
-                      <div className="tradeoff-side">
-                        <span className="tradeoff-label">The tension</span>
-                        <p>{d.tension}</p>
-                      </div>
-                      <div className="tradeoff-side tradeoff-res">
-                        <span className="tradeoff-label">How it resolved</span>
-                        <p>{d.resolution}</p>
-                      </div>
-                    </div>
-                    <div className="try">
-                      <span className="try-label">Try it</span>
-                      {d.demo === "dashboard" && <UnifiedDashboard />}
-                      {d.demo === "stages" && <StagesDemo />}
-                      {d.demo === "accept" && <AcceptDrawer />}
-                      {d.demo === "close" && <StatusTrack />}
-                      {d.demo === "bulk" && <BulkControls />}
-                      {d.demo === "views" && <ViewsDemo />}
-                      {d.demo === "card" && <CardCompareCoded />}
-                    </div>
+
+                  <ol className={`evolution evolution-${d.evolution.length}`} aria-label="How the decision evolved">
+                    {d.evolution.map((s) => (
+                      <li key={s.label} className="step" data-chosen={s.chosen || undefined}>
+                        <span className="step-label">{s.label}</span>
+                        <Wireframe kind={s.wire} label={`${s.label} wireframe`} />
+                        <p>{s.note}</p>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <div className={`media-grid media-grid-${d.media.length}`}>
+                    {d.media.map((m) => <Media key={m.src} {...m} />)}
                   </div>
                 </div>
               </li>
@@ -161,109 +156,50 @@ export default function Page() {
           </ol>
         </section>
 
-        {/* DISPATCHED — solution */}
-        <section id="solution" className="chapter" style={{ ["--c" as string]: "var(--dispatched)" }}>
+        <section id="outcome" className="block">
           <div className="wrap">
-            <ChapterHead stage="Dispatched" title="Put together, one order start to finish" />
-            <p className="chapter-intro">
-              Here’s the whole redesigned flow in one place. Accept an order, assign a rider, choose
-              billing and move it through every stage.
-            </p>
-            <FlowSim />
-
-            <div className="devices">
-              <div className="devices-copy">
-                <h3>Built for the pass and the back office</h3>
-                <p>
-                  The dashboard is responsive across mobile and web. Adaptive layouts, a clear
-                  hierarchy and touch-friendly targets keep critical information reachable wherever
-                  staff are standing.
-                </p>
-              </div>
-              <ResponsiveSwitch />
-            </div>
+            <h2>Outcome</h2>
+            {metrics.length > 0 && (
+              <dl className="metrics">
+                {metrics.map((m) => (
+                  <div key={m.label}>
+                    <dd>{m.value}</dd>
+                    <dt>{m.label}</dt>
+                  </div>
+                ))}
+              </dl>
+            )}
+            <ul className="list list-check outcomes">
+              {outcomes.map((o) => <li key={o}>{o}</li>)}
+            </ul>
           </div>
         </section>
 
-        {/* DELIVERED — outcome */}
-        <section id="outcome" className="chapter" style={{ ["--c" as string]: "var(--delivered)" }}>
-          <div className="wrap">
-            <ChapterHead stage="Delivered" title="What changed on the floor" />
-            <div className="outcome-grid">
-              <div className="receipt" aria-label="Outcome summary">
-                <div className="receipt-head">
-                  <span>Inresto</span>
-                  <span>Shift report</span>
-                </div>
-                {metrics.length > 0 && (
-                  <dl className="receipt-metrics">
-                    {metrics.map((m) => (
-                      <div key={m.label}>
-                        <dt>{m.label}</dt>
-                        <dd>{m.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
-                <ul className="receipt-lines">
-                  {outcomes.map((o) => (
-                    <li key={o}>{o}</li>
-                  ))}
-                </ul>
-                <div className="receipt-foot">
-                  <span>Status</span>
-                  <span>Closed ✓</span>
-                </div>
-              </div>
-              <div className="demonstrates">
-                <h3>What this project demonstrates</h3>
-                <ul>
-                  {demonstrates.map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CLOSED — reflection */}
-        <section id="reflection" className="chapter reflection">
+        <section className="reflection">
           <div className="wrap narrow">
-            <p className="reflection-intro">{reflection.intro}</p>
             <blockquote>
-              <p>{reflection.quote}</p>
+              <p>{reflection}</p>
             </blockquote>
-            <p className="reflection-outro">{reflection.outro}</p>
           </div>
         </section>
       </main>
 
       <footer className="footer">
         <div className="wrap">
-        <div className="footer-grid">
-          <a className="next" href={meta.nextProject}>
-            <span>Up next</span>
-            <strong>See the next case study</strong>
-          </a>
-          <div className="footer-links">
-            <a href={`mailto:${meta.email}`}>{meta.email}</a>
-            <a href={meta.linkedin}>LinkedIn</a>
-            <a href={meta.behance}>Behance</a>
-            <a href={meta.portfolio}>All work</a>
+          <div className="footer-grid">
+            <a className="next" href={meta.nextProject}>
+              <span>Up next</span>
+              <strong>See the next case study</strong>
+            </a>
+            <div className="footer-links">
+              <span className="footer-email">{meta.email}</span>
+              <a href={meta.linkedin}>LinkedIn</a>
+              <a href={meta.behance}>Behance</a>
+              <a href={meta.portfolio}>All work</a>
+            </div>
           </div>
-        </div>
         </div>
       </footer>
     </>
-  );
-}
-
-function ChapterHead({ stage, title }: { stage: string; title: string }) {
-  return (
-    <div className="chapter-head">
-      <span className="stage-chip">{stage}</span>
-      <h2>{title}</h2>
-    </div>
   );
 }

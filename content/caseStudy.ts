@@ -1,19 +1,15 @@
-// All copy for the case study lives here, so it can be edited without touching layout code.
-
-// Every visual in the site is built in code (see components/Interactives.tsx), so there are no image files to host.
+// All copy for the case study. Edit text here without touching layout code.
+// Media files live in /public/media.
 
 export const meta = {
   title: "Inresto order dashboard",
-  subtitle:
-    "Redesigning how restaurant teams accept, track and close orders across delivery, takeaway, curbside and dine-in, so the busiest hour of the night feels like the calmest.",
+  summary:
+    "Redesigning how restaurant teams manage delivery, takeaway, curbside and dine-in orders, so peak hours run on one clear screen.",
   facts: [
-    { label: "Project", value: "B2B SaaS, CRM platform, enterprise UX" },
     { label: "Role", value: "Product Designer (UX)" },
-    { label: "Platform", value: "Inresto Campaigns, part of the Dineout–Inresto suite" },
-    {
-      label: "Users",
-      value: "Brand managers, ops, customer support, marketing and growth teams",
-    },
+    { label: "Project", value: "B2B SaaS, CRM platform, enterprise UX" },
+    { label: "Platform", value: "Inresto, part of the Dineout–Inresto suite" },
+    { label: "Users", value: "Brand managers, ops, support, marketing and growth teams" },
   ],
   author: "Samikshya Satpathy",
   email: "samikshyawork@gmail.com",
@@ -24,191 +20,153 @@ export const meta = {
 };
 
 export const overview =
-  "Inresto is a restaurant technology platform powering CRM, reservations, payments and operations for leading restaurant and delivery chains in India. Its order management experience wasn’t built for environments where decisions happen in seconds. This project redesigned the order dashboard to streamline delivery, takeaway, curbside and dine-in workflows, so teams could manage orders faster, make fewer errors and work with confidence.";
+  "Inresto powers CRM, reservations, payments and operations for leading restaurant and delivery chains in India. Its order management wasn’t built for the pace of a live kitchen. I redesigned the order dashboard so teams could manage orders faster, make fewer errors and trust what they see.";
 
 export const problems = [
-  {
-    tag: "Fragmented",
-    text: "Delivery, takeaway, curbside and dine-in tickets lived in different places.",
-  },
-  {
-    tag: "Complex",
-    text: "Accepting orders, assigning riders, choosing billing and updating status took too many steps.",
-  },
-  {
-    tag: "Opaque",
-    text: "Limited visibility into order stages made prioritising in real time hard.",
-  },
-  {
-    tag: "Buried",
-    text: "Layered information architecture slowed access to critical item and order details.",
-  },
-  {
-    tag: "Inconsistent",
-    text: "Mismatched UI patterns raised the learning curve and cognitive load.",
-  },
+  "Delivery, takeaway, curbside and dine-in tickets lived in different places",
+  "Accepting, assigning riders, billing and updating status took too many steps",
+  "No clear view of which stage each order was in",
+  "Critical order details were buried under layers",
+  "Inconsistent UI patterns raised the learning curve",
 ];
 
-export const consequences = [
-  "Orders were delayed, missed, or prone to operational errors",
-  "Staff relied on manual coordination and workarounds during peak hours",
-  "Team efficiency dropped in high-volume situations",
-  "Confidence in the system weakened, eroding operational trust",
+export const impact = [
+  "Orders delayed, missed or handled wrongly",
+  "Staff fell back on manual workarounds at peak hours",
+  "Efficiency dropped as volume rose",
+  "Teams stopped trusting the system",
 ];
 
-export const insight = {
-  lead: "This wasn’t a lack of features.",
-  rest: "It was a UX clarity and system design problem.",
-};
+export const insight = "It wasn’t a lack of features. It was a clarity and system design problem.";
 
-export type Goal = { title: string; text: string; decisions: number[] };
-
-export const goals: Goal[] = [
-  {
-    title: "A unified command center",
-    text: "One dashboard that sorts orders by type while letting teams see or manage every ticket from one place.",
-    decisions: [1, 6],
-  },
-  {
-    title: "Real-time visibility",
-    text: "Quick filtering and stage-based navigation so staff instantly understand status and priority.",
-    decisions: [2, 4],
-  },
-  {
-    title: "Lower cognitive load",
-    text: "Surface the details that matter through considered cards and flexible list views.",
-    decisions: [6, 7],
-  },
-  {
-    title: "Streamlined critical workflows",
-    text: "Simplify accepting orders, editing rider details, choosing billing and updating status.",
-    decisions: [3],
-  },
-  {
-    title: "Efficiency at scale",
-    text: "Bulk actions, outlet switching and pausing incoming orders keep teams in control at volume.",
-    decisions: [5],
-  },
-  {
-    title: "System trust",
-    text: "Predictable, transparent flows with notification indicators and clear closures.",
-    decisions: [2, 4],
-  },
+export const goals = [
+  { title: "One command center", text: "Every order type, managed from one place" },
+  { title: "Real-time visibility", text: "Stage-based navigation with live counts" },
+  { title: "Lower cognitive load", text: "The right details first, in cards or lists" },
+  { title: "Faster critical flows", text: "Accept, assign, bill and update with fewer steps" },
+  { title: "Control at scale", text: "Bulk actions, outlet switching, pause orders" },
+  { title: "System trust", text: "Predictable flows and clear closure" },
 ];
+
+export type WireKind =
+  | "nav-before" | "nav-explored" | "nav-final"
+  | "card-before" | "card-explored" | "card-final"
+  | "ops-before" | "ops-explored" | "ops-final"
+  | "view-card" | "view-list";
+
+export type Step = { label: string; wire: WireKind; note: string; chosen?: boolean };
 
 export type Decision = {
-  n: number;
+  id: string;
   title: string;
   decision: string;
   why: string;
-  // Tradeoffs are written from the decisions above. Edit to match what actually happened.
-  tension: string;
-  resolution: string;
-  demo: "dashboard" | "stages" | "accept" | "close" | "bulk" | "views" | "card";
+  // Wireframes show how the thinking moved. Edit the notes to match your real explorations.
+  evolution: Step[];
+  media: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string }[];
 };
 
 export const decisions: Decision[] = [
   {
-    n: 1,
-    demo: "dashboard",
-    title: "One dashboard for every order type",
+    id: "navigation",
+    title: "One dashboard, sorted by type and stage",
     decision:
-      "A centralized dashboard consolidates all orders and groups them into Delivery, Takeaway, Curbside and Dine-in.",
-    why: "A single command center improves situational awareness, cuts navigation and helps teams handle high volume.",
-    tension: "Everything in one place can mean everything at once.",
-    resolution:
-      "Order-type tabs sit on top of an All view, so teams can zoom out for the full picture or narrow to the queue they own.",
+      "Order types became chips at the top. Stages (Incoming, Preparing, Ready, Dispatched, Delivered, Cancelled) became tabs with live counts.",
+    why: "Staff see the whole floor in one glance and know exactly where the bottleneck is.",
+    evolution: [
+      { label: "Before", wire: "nav-before", note: "A separate screen per order type. Status hidden inside each order." },
+      { label: "Explored", wire: "nav-explored", note: "One mixed list with a status dropdown. Simpler, but counts stayed invisible." },
+      { label: "Chosen", wire: "nav-final", note: "Type chips plus stage tabs with counts. Two taps reach any queue.", chosen: true },
+    ],
+    media: [
+      {
+        kind: "video",
+        src: "/media/type-and-stage-nav.mp4",
+        poster: "/media/type-and-stage-nav.jpg",
+        alt: "Order type chips and stage tabs with live counts",
+        caption: "Order-type chips and stage tabs with live counts",
+      },
+    ],
   },
   {
-    n: 2,
-    demo: "stages",
-    title: "Stage navigation with live counts",
+    id: "card",
+    title: "An order card built for a glance",
     decision:
-      "A top bar of stages (Accepted, Prepared, Dispatched, Delivered), each showing a live ticket count for one-tap filtering.",
-    why: "Clear status visibility speeds up prioritising, prevents bottlenecks and supports decisions in the moment.",
-    tension: "Numbers that change constantly can become noise.",
-    resolution:
-      "Counts stay quiet inside the navigation instead of firing alerts, so a growing number reads as a bottleneck at a glance.",
+      "Each card leads with type and ID, then due time, customer, items and bill value. One primary action changes with the stage: Accept, then Prepare.",
+    why: "In a rush, staff scan, decide and act. Everything else waits behind “more” or the overflow menu.",
+    evolution: [
+      { label: "Before", wire: "card-before", note: "Every field at equal weight. Hard to tell what needs action." },
+      { label: "Explored", wire: "card-explored", note: "Full details on the card. Clear, but too tall: fewer orders per screen." },
+      { label: "Chosen", wire: "card-final", note: "Priority fields up top, tags for Future, Repeat and COD, one action.", chosen: true },
+    ],
+    media: [
+      {
+        kind: "video",
+        src: "/media/order-cards.mp4",
+        poster: "/media/order-cards.jpg",
+        alt: "Incoming order cards with Accept actions and Future and Repeat tags",
+        caption: "Incoming orders as cards, each with one clear action",
+      },
+    ],
   },
   {
-    n: 3,
-    demo: "accept",
-    title: "Acceptance in one flow",
-    decision:
-      "Accept a ticket, assign a rider (in-house or third party), edit details and choose billing without leaving the flow.",
-    why: "Fewer steps in critical workflows means fewer errors and orders that keep moving.",
-    tension: "Putting every choice in one place risks a crowded form.",
-    resolution:
-      "Choices appear in the order staff make them, so the flow reads top to bottom and only asks for what’s needed next.",
-  },
-  {
-    n: 4,
-    demo: "close",
-    title: "Status updates with close indicators",
-    decision:
-      "Tickets move Prepared → Dispatched → Delivered, and a notification indicator prompts staff to close each one.",
-    why: "Visible progress and a clear finish line improve accountability and prevent operational gaps.",
-    tension: "An explicit close is one more tap than closing automatically.",
-    resolution:
-      "The extra tap is the point: a human confirms the order is done, so nothing slips out of view unnoticed.",
-  },
-  {
-    n: 5,
-    demo: "bulk",
+    id: "operations",
     title: "Bulk actions and operational controls",
     decision:
-      "Multi-select for batch edits, plus controls to pause incoming orders, switch outlets and quickly modify details.",
-    why: "High-volume workflows need agility; these controls keep teams in charge during the rush.",
-    tension: "Power tools make it just as fast to make a mistake at scale.",
-    resolution:
-      "Selection is a deliberate mode, and pausing orders is a visible state, so batch actions never happen by accident.",
+      "A toolbar for Accept all, Print KOT, Print bill, Delivery partners and Pause new orders. Checkboxes on cards for batch actions, and an outlet selector up top.",
+    why: "At volume, acting on orders one by one is the bottleneck. Teams need to move many orders and control intake.",
+    evolution: [
+      { label: "Before", wire: "ops-before", note: "Actions one order at a time, repeated dozens of times an hour." },
+      { label: "Explored", wire: "ops-explored", note: "Batch options in each card’s menu. Hidden and easy to miss." },
+      { label: "Chosen", wire: "ops-final", note: "One toolbar plus card checkboxes. Always visible, never accidental.", chosen: true },
+    ],
+    media: [
+      {
+        kind: "video",
+        src: "/media/ops-toolbar.mp4",
+        poster: "/media/ops-toolbar.jpg",
+        alt: "Outlet selector, filters and bulk action toolbar",
+        caption: "Outlet selector, filters and the bulk action toolbar",
+      },
+      {
+        kind: "video",
+        src: "/media/bulk-select.mp4",
+        poster: "/media/bulk-select.jpg",
+        alt: "Selecting several order cards with checkboxes",
+        caption: "Selecting orders for a batch action",
+      },
+    ],
   },
   {
-    n: 6,
-    demo: "views",
+    id: "views",
     title: "Card view and list view",
-    decision: "Both card and list views, so each team picks the format that fits how it works.",
-    why: "Letting people match the interface to their mental model makes them faster.",
-    tension: "Two views means two layouts to design, build and keep consistent.",
-    resolution:
-      "Both views draw on the same order fields in the same hierarchy, so switching changes density, never meaning.",
-  },
-  {
-    n: 7,
-    demo: "card",
-    title: "An order card built for a glance",
-    decision: "Order cards surface the most relevant details first, with a firm visual hierarchy.",
-    why: "Prioritised information lowers mental effort and speeds up action when time is short.",
-    tension: "Showing less upfront means some details move one tap away.",
-    resolution:
-      "The card answers what, for whom, and what next. Everything else waits in the order detail.",
+    decision: "The same orders in two layouts, switched from one control.",
+    why: "Kitchen staff scan cards; managers compare rows. Both see the same fields in the same order.",
+    evolution: [
+      { label: "Card view", wire: "view-card", note: "Best for scanning and acting on the floor." },
+      { label: "List view", wire: "view-list", note: "Best for comparing outlets, times and items across many orders.", chosen: true },
+    ],
+    media: [
+      {
+        kind: "image",
+        src: "/media/list-view.jpg",
+        alt: "List view of incoming orders with outlet, placed by, times, items and Accept actions",
+        caption: "List view: outlet, customer, placed and delivery time, items, action",
+      },
+    ],
   },
 ];
 
 export const outcomes = [
-  "Faster order management and better operational efficiency, especially at peak hours",
-  "Clear status visibility for quicker prioritising and decisions",
-  "Lower cognitive load, with critical information surfaced upfront",
-  "Standardised workflows that increased trust and reliability",
-  "A scalable design system ready for future features",
+  "Faster order management, especially at peak hours",
+  "Clear status visibility for quicker prioritising",
+  "Lower cognitive load, with critical details upfront",
+  "Standardised workflows that rebuilt trust",
+  "A scalable design system for future features",
 ];
 
-// Add measured results here when available, e.g. { value: "38%", label: "faster acceptance" }.
-// The outcome receipt shows this block only when the list is non-empty.
+// Add measured results when available, e.g. { value: "38%", label: "faster acceptance" }.
 export const metrics: { value: string; label: string }[] = [];
 
-export const demonstrates = [
-  "Workflow and interaction design for complex, multi-stage processes",
-  "Systems thinking and consistent UI patterns",
-  "Information architecture for clarity and speed",
-  "Problem framing and designing for real-world constraints",
-  "Strategic product thinking for efficiency, trust and scale",
-];
-
-export const reflection = {
-  intro: "This project reinforced a core belief in my design practice:",
-  quote:
-    "In enterprise products, users don’t need more power; they need confidence that the power will behave as expected.",
-  outro:
-    "By redesigning Inresto CRM around transparency, edge cases and system clarity, the platform became easier to use, easier to trust and easier to scale.",
-};
+export const reflection =
+  "In enterprise products, users don’t need more power; they need confidence that the power will behave as expected.";
