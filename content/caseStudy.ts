@@ -19,6 +19,21 @@ export const meta = {
   behance: "https://www.behance.net/samikshsatpath",
 };
 
+// Top navigation, matching samikshyadesigns.com. Change any href here.
+export const siteNav = {
+  home: "https://www.samikshyadesigns.com",
+  links: [
+    { label: "Work", href: "https://www.samikshyadesigns.com", external: false },
+    { label: "About me", href: "https://www.samikshyadesigns.com", external: false },
+    {
+      label: "Resume",
+      href: "https://drive.google.com/file/d/1QLpL0WDwFq_m60SKHTdfZE_bXwE7jAVp/view?usp=sharing",
+      external: true,
+    },
+  ],
+  cta: { label: "Open to work", href: "https://www.samikshyadesigns.com/contact-8" },
+};
+
 export const overview =
   "Inresto powers CRM, reservations, payments and operations for leading restaurant and delivery chains in India. Its order management wasn’t built for the pace of a live kitchen. I redesigned the order dashboard so teams could manage orders faster, make fewer errors and trust what they see.";
 

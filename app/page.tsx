@@ -1,4 +1,5 @@
 import Media from "@/components/Media";
+import SiteHeader from "@/components/SiteHeader";
 import SectionNav, { type NavItem } from "@/components/SectionNav";
 import Wireframe from "@/components/Wireframe";
 import {
@@ -27,10 +28,9 @@ export default function Page() {
     <>
       <a className="skip" href="#problem">Skip to the case study</a>
 
+      <SiteHeader />
+
       <header className="hero" id="top">
-        <div className="wrap">
-          <a className="back" href={meta.portfolio}>Samikshya Satpathy</a>
-        </div>
         <div className="wrap">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
