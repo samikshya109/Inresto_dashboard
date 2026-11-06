@@ -2,6 +2,8 @@
 
 A concise case study site for Samikshya Satpathy's redesign of the Inresto (Dineout) order dashboard. Built with Next.js, ready to deploy on Vercel.
 
+## Case Study Link - https://inresto-dashboard.vercel.app/
+
 ## Structure
 
 Problem → Goals → Solution → Key decisions → Outcome → Reflection.
