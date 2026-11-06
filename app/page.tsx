@@ -32,6 +32,9 @@ export default function Page() {
 
       <header className="hero" id="top">
         <div className="wrap">
+          <a className="back" href={meta.portfolio}>Back to homepage</a>
+        </div>
+        <div className="wrap">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="cover"
